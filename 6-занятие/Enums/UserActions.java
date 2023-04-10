@@ -13,6 +13,19 @@ public enum UserActions {
 		this.key = key;
 	}
 
+	static public UserActions getUserActionByKey(Integer key) {
+		if (UserActions.ADD_FILTER.getKey() == key)
+			return UserActions.ADD_FILTER;
+		if (UserActions.SHOW.getKey() == key)
+			return UserActions.SHOW;
+		if (UserActions.RESET_FILTER.getKey() == key)
+			return UserActions.RESET_FILTER;
+		if (UserActions.EXIT.getKey() == key)
+			return UserActions.EXIT;
+
+		return UserActions.NOTHING;
+	}
+
 	public Integer getKey() {
 		return this.key;
 	}
