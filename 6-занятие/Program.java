@@ -13,17 +13,15 @@ import Enums.UserActions;
 
 public class Program {
 	private Scanner input = new Scanner(System.in);
-	
+
 	private HashMap<Filters, Integer> filters = new HashMap<>();
 	private UserActions action = UserActions.NOTHING;
 	private ArrayList<Notebook> notebooks = new ArrayList<>();
-	
 
 	static public void main(String[] args) {
 		Program prog = new Program();
 		prog.start();
 	}
-
 
 	public void start() {
 		this.prepareNotebooks();
@@ -78,33 +76,95 @@ public class Program {
 	}
 
 	private void handleAddFilter() {
-		Filters filterId = this.askAndGetFilterId();
-		Integer filterValue = this.askAndGetFilterValue(filterId);
-		this.filters.put(filterId, filterValue);
+		Filters filter = this.askAndGetFilter();
+		if (this.isFilterNothing(filter))
+			return;
+
+		Integer filterValue = this.askAndGetFilterValue(filter);
+		this.filters.put(filter, filterValue);
 	}
 
-	private Filters askAndGetFilterId() {
+	private Filters askAndGetFilter() {
 		this.askFilter();
 		return Filters.getFilterByKey(this.input.nextInt());
 	}
 
 	private void askFilter() {
 		ArrayList<Filters> filters = new ArrayList<>();
-			filters.add(Filters.RAM);
-			filters.add(Filters.ROM);
-			filters.add(Filters.SYSTEM);
-			filters.add(Filters.COLOR);
-		
+		filters.add(Filters.RAM);
+		filters.add(Filters.ROM);
+		filters.add(Filters.SYSTEM);
+		filters.add(Filters.COLOR);
+
 		filters.forEach(filter -> System.out.println(filter.getMenuItemString()));
 	}
 
-	private Integer askAndGetFilterValue(Filters filterId) {
-		this.askFilterValue(filterId);
+	private boolean isFilterNothing(Filters filter) {
+		return Filters.NOTHING == filter;
+	}
+
+	private Integer askAndGetFilterValue(Filters filter) {
+		this.askFilterValue(filter);
 		return this.input.nextInt();
 	}
 
-	private void askFilterValue(Filters filterId) {
-		// Ask Frase
+	private void askFilterValue(Filters filter) {
+		switch (filter) {
+			case RAM:
+				this.askRAMFilterValue();
+				break;
+			case ROM:
+				this.askROMFilterValue();
+				break;
+			case SYSTEM:
+				this.askOSFilterValue();
+				break;
+			case COLOR:
+				this.askColorFilterValue();
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void askRAMFilterValue() {
+		ArrayList<RAM> options = new ArrayList<>();
+		options.add(RAM.GB_2);
+		options.add(RAM.GB_4);
+		options.add(RAM.GB_8);
+		options.add(RAM.GB_16);
+
+		options.forEach(option -> System.out.println(option.getMenuItemString()));
+	}
+
+	private void askROMFilterValue() {
+		ArrayList<ROM> options = new ArrayList<>();
+		options.add(ROM.GB_256);
+		options.add(ROM.GB_512);
+		options.add(ROM.GB_1024);
+		options.add(ROM.GB_2048);
+
+		options.forEach(option -> System.out.println(option.getMenuItemString()));
+	}
+
+	private void askOSFilterValue() {
+		ArrayList<OperatingSystems> options = new ArrayList<>();
+		options.add(OperatingSystems.WINDOWS);
+		options.add(OperatingSystems.MAC);
+		options.add(OperatingSystems.LINUX);
+
+		options.forEach(option -> System.out.println(option.getMenuItemString()));
+	}
+
+	private void askColorFilterValue() {
+		ArrayList<Colors> options = new ArrayList<>();
+		options.add(Colors.WHITE);
+		options.add(Colors.BLACK);
+		options.add(Colors.GRAY);
+		options.add(Colors.GRAPHITE);
+		options.add(Colors.PINK);
+
+		options.forEach(option -> System.out.println(option.getMenuItemString()));
 	}
 
 	private void handleShowFiltered() {
@@ -114,7 +174,7 @@ public class Program {
 	private void handleResetFilter() {
 
 	}
-	
+
 	private void printNotebooks(ArrayList<Notebook> notebooks) {
 		notebooks.forEach(notebook -> notebook.print());
 	}
