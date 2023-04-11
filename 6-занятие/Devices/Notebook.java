@@ -44,18 +44,18 @@ public class Notebook {
 	}
 
 	public boolean filterByRAM(Integer minKey) {
-		return this.RAM.getKey() >= minKey;
+		return this.RAM.getKey() < minKey;
 	}
 
 	public boolean filterByROM(Integer minKey) {
-		return this.ROM.getKey() >= minKey;
+		return this.ROM.getKey() < minKey;
 	}
 
 	public boolean filterBySystem(Integer key) {
-		return this.system.getKey() == key;
+		return this.system.getKey() != key;
 	}
 
 	public boolean filterByColor(Integer key) {
-		return this.color.getKey() == key;
+		return this.color.getKey() != key;
 	} 
 }

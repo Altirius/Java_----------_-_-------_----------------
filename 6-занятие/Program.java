@@ -88,7 +88,6 @@ public class Program {
 
 		Integer filterValue = this.askAndGetFilterValue(filter);
 		this.filters.put(filter, filterValue);
-		System.out.println(this.filters);
 	}
 
 	private Filters askAndGetFilter() {
@@ -144,12 +143,46 @@ public class Program {
 	}
 
 	private void handleShowFiltered() {
-		ArrayList<Notebook> notebooks = this.notebooks;
-		System.out.println(this.filters);
+		ArrayList<Notebook> notebooks = new ArrayList<>();
+		notebooks.addAll(this.notebooks);
+		notebooks.removeIf(notebook -> this.isNotebookNeedToRemove(notebook));
+
+		this.printNotebooks(notebooks);
 	}
 
-	private ArrayList<Notebook> filterNotebooks() {
-		return new ArrayList<>();
+	private boolean isNotebookNeedToRemove(Notebook notebook) {
+		for (HashMap.Entry<Filters, Integer> entry : this.filters.entrySet()) {
+			Filters filter = entry.getKey();
+			Integer filterValue = entry.getValue();
+			boolean filtered = false;
+
+			if (filterValue > 0) {
+				switch (filter) {
+					case RAM:
+						filtered = notebook.filterByRAM(filterValue);
+						break;
+					case ROM:
+						filtered = notebook.filterByROM(filterValue);
+						break;
+					case SYSTEM:
+						filtered = notebook.filterBySystem(filterValue);
+						break;
+					case COLOR:
+						filtered = notebook.filterByColor(filterValue);
+						break;
+					default:
+						break;
+				}
+
+				if (filtered) {
+					return filtered;
+				}
+			}
+
+			return false;
+		}
+
+		return false;
 	}
 
 	private void handleResetFilter() {
