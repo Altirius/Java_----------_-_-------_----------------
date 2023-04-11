@@ -2,21 +2,23 @@ package Devices;
 
 import Enums.Colors;
 import Enums.OperatingSystems;
+import Enums.RAM;
+import Enums.ROM;
 
 public class Notebook {
 	private final String manufacturer;
 	private final String model;
+	private final RAM RAM;
+	private final ROM ROM;
 	private final OperatingSystems system;
 	private final Colors color;
 
-	private final Integer RAM;
-	private final Integer ROM;
 
 	public Notebook(
 		String manufacturer,
 		String model,
-		Integer RAM,
-		Integer ROM,
+		RAM RAM,
+		ROM ROM,
 		OperatingSystems system,
 		Colors color		
 	) {
@@ -32,28 +34,28 @@ public class Notebook {
 		String[] characteristics = {
 			"Производитель: ", this.manufacturer,
 			", Модель: ", this.model,
-			", ОЗУ: ", String.valueOf(this.RAM),
-			", ПЗУ: ", String.valueOf(this.ROM),
-			", ОС: ", String.valueOf(this.system),
-			", Цвет: ", String.valueOf(this.color)
+			", ОЗУ: ", this.RAM.getTitle(),
+			", ПЗУ: ", this.ROM.getTitle(),
+			", ОС: ", this.system.getTitle(),
+			", Цвет: ", this.color.getTitle()
 		};
 
 		System.out.println(String.join("", characteristics));
 	}
 
-	public boolean filterByRAM(Integer min) {
-		return this.RAM >= min;
+	public boolean filterByRAM(Integer minKey) {
+		return this.RAM.getKey() >= minKey;
 	}
 
-	public boolean filterByROM(Integer min) {
-		return this.ROM >= min;
+	public boolean filterByROM(Integer minKey) {
+		return this.ROM.getKey() >= minKey;
 	}
 
-	public boolean filterBySystem(OperatingSystems targetSystem) {
-		return this.system == targetSystem;
+	public boolean filterBySystem(Integer key) {
+		return this.system.getKey() == key;
 	}
 
-	public boolean filterByColor(Colors targetColor) {
-		return this.color == targetColor;
+	public boolean filterByColor(Integer key) {
+		return this.color.getKey() == key;
 	} 
 }

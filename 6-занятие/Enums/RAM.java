@@ -1,16 +1,15 @@
 package Enums;
 
-public enum Colors {
-	WHITE(1, "Белый"),
-	BLACK(2, "Чёрный"),
-	GRAY(3, "Серый"),
-	GRAPHITE(4, "Графитовый"),
-	PINK(5, "Розовый");
+public enum RAM {
+	GB_2(1, "2 Гб"),
+	GB_4(2, "4 Гб"),
+	GB_8(3, "8 Гб"),
+	GB_16(4, "16 Гб");
 
-	private Integer key;
+	private Integer key;	
 	private String title;
 
-	Colors(Integer key, String title) {
+	RAM(Integer key, String title) {
 		this.key = key;
 		this.title = title;
 	}
