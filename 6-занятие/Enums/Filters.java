@@ -1,7 +1,9 @@
 package Enums;
 
-public enum Filters {
-	NOTHING(0, ""),
+import Interfaces.ISelectebleItem;
+
+public enum Filters implements ISelectebleItem {
+	NOTHING(0, " <- "),
 	RAM(1, "ОЗУ"),
 	ROM(2, "ПЗУ"),
 	SYSTEM(3, "ОС"),
@@ -10,8 +12,9 @@ public enum Filters {
 	private Integer key;
 	private String title;
 
-	Filters(Integer key, String title){
+	Filters(Integer key, String title) {
 		this.key = key;
+		this.title = title;
 	}
 
 	static public Filters getEntityByKey(Integer key) {
@@ -34,6 +37,6 @@ public enum Filters {
 	}
 
 	public String getMenuItemString() {
-		return String.valueOf(this.getKey()) + ") " + this.getTitle(); 
+		return String.valueOf(this.getKey()) + ") " + this.getTitle();
 	}
 }

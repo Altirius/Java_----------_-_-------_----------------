@@ -9,6 +9,7 @@ import Enums.OperatingSystems;
 import Enums.RAM;
 import Enums.ROM;
 import Enums.UserActions;
+import Interfaces.ISelectebleItem;
 
 public class Program {
 	private Scanner input = new Scanner(System.in);
@@ -57,7 +58,11 @@ public class Program {
 	}
 
 	private void askUserAction() {
-		System.out.println("Введите команду:");
+		UserActions[] options = UserActions.values();
+
+		for (int i = 1; i < options.length; i++) {
+			System.out.println(options[i].getMenuItemString());
+		}
 	}
 
 	private void handleAction(UserActions action) {
@@ -67,8 +72,10 @@ public class Program {
 				break;
 			case SHOW:
 				this.handleShowFiltered();
+				break;
 			case RESET_FILTER:
 				this.handleResetFilter();
+				break;
 			default:
 				break;
 		}
@@ -81,6 +88,7 @@ public class Program {
 
 		Integer filterValue = this.askAndGetFilterValue(filter);
 		this.filters.put(filter, filterValue);
+		System.out.println(this.filters);
 	}
 
 	private Filters askAndGetFilter() {
@@ -89,13 +97,11 @@ public class Program {
 	}
 
 	private void askFilter() {
-		ArrayList<Filters> filters = new ArrayList<>();
-		filters.add(Filters.RAM);
-		filters.add(Filters.ROM);
-		filters.add(Filters.SYSTEM);
-		filters.add(Filters.COLOR);
+		Filters[] options = Filters.values();
 
-		filters.forEach(filter -> System.out.println(filter.getMenuItemString()));
+		for(int i=0; i < options.length; i++) {
+			System.out.println(options[i].getMenuItemString());
+		}
 	}
 
 	private boolean isFilterNothing(Filters filter) {
@@ -104,69 +110,36 @@ public class Program {
 
 	private Integer askAndGetFilterValue(Filters filter) {
 		this.askFilterValue(filter);
-		return this.getFilterValue(filter);
+		return this.getFilterValue();
 	}
 
 	private void askFilterValue(Filters filter) {
 		switch (filter) {
 			case RAM:
-				this.askRAMFilterValue();
+				this.askAnyFilterValue(RAM.values());
 				break;
 			case ROM:
-				this.askROMFilterValue();
+				this.askAnyFilterValue(ROM.values());
 				break;
 			case SYSTEM:
-				this.askOSFilterValue();
+				this.askAnyFilterValue(OperatingSystems.values());
 				break;
 			case COLOR:
-				this.askColorFilterValue();
+				this.askAnyFilterValue(Colors.values());
 				break;
 			default:
 				break;
 		}
 	}
 
-	private void askRAMFilterValue() {
-		ArrayList<RAM> options = new ArrayList<>();
-		options.add(RAM.GB_2);
-		options.add(RAM.GB_4);
-		options.add(RAM.GB_8);
-		options.add(RAM.GB_16);
 
-		options.forEach(option -> System.out.println(option.getMenuItemString()));
+	private <T extends ISelectebleItem> void askAnyFilterValue(T[] options) {
+		for (int i = 0; i < options.length; i++) {
+			System.out.println(options[i].getMenuItemString());
+		}
 	}
 
-	private void askROMFilterValue() {
-		ArrayList<ROM> options = new ArrayList<>();
-		options.add(ROM.GB_256);
-		options.add(ROM.GB_512);
-		options.add(ROM.GB_1024);
-		options.add(ROM.GB_2048);
-
-		options.forEach(option -> System.out.println(option.getMenuItemString()));
-	}
-
-	private void askOSFilterValue() {
-		ArrayList<OperatingSystems> options = new ArrayList<>();
-		options.add(OperatingSystems.WINDOWS);
-		options.add(OperatingSystems.MAC);
-		options.add(OperatingSystems.LINUX);
-
-		options.forEach(option -> System.out.println(option.getMenuItemString()));
-	}
-
-	private void askColorFilterValue() {
-		ArrayList<Colors> options = new ArrayList<>();
-		options.add(Colors.WHITE);
-		options.add(Colors.BLACK);
-		options.add(Colors.GRAY);
-		options.add(Colors.GRAPHITE);
-		options.add(Colors.PINK);
-
-		options.forEach(option -> System.out.println(option.getMenuItemString()));
-	}
-
-	private Integer getFilterValue(Filters filter) {
+	private Integer getFilterValue() {
 		return this.input.nextInt();
 	}
 

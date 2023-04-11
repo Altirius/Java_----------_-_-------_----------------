@@ -1,6 +1,8 @@
 package Enums;
 
-public enum RAM {
+import Interfaces.ISelectebleItem;
+
+public enum RAM implements ISelectebleItem {
 	GB_2(1, "2 Гб"),
 	GB_4(2, "4 Гб"),
 	GB_8(3, "8 Гб"),

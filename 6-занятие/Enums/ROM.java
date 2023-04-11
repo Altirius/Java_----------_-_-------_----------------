@@ -1,6 +1,8 @@
 package Enums;
 
-public enum ROM {
+import Interfaces.ISelectebleItem;
+
+public enum ROM implements ISelectebleItem {
 	GB_256(1, "256 Гб"),
 	GB_512(2, "512 Гб"),
 	GB_1024(3, "1 Тб"),

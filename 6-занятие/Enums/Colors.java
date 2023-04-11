@@ -1,6 +1,8 @@
 package Enums;
 
-public enum Colors {
+import Interfaces.ISelectebleItem;
+
+public enum Colors implements ISelectebleItem {
 	WHITE(1, "Белый"),
 	BLACK(2, "Чёрный"),
 	GRAY(3, "Серый"),

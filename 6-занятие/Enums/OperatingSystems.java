@@ -1,6 +1,8 @@
 package Enums;
 
-public enum OperatingSystems {
+import Interfaces.ISelectebleItem;
+
+public enum OperatingSystems implements ISelectebleItem {
 	ANY(0, "Любая система"),
 	WINDOWS(1, "Windows"),
 	MAC(2, "MAC"),
