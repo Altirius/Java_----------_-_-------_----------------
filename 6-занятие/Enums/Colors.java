@@ -15,6 +15,17 @@ public enum Colors {
 		this.title = title;
 	}
 
+	static public Colors getEntityByKey(Integer key) {
+		Colors[] options = Colors.values();
+		for (int i = 1; i < options.length; i++) {
+			if (options[i].getKey() == key) {
+				return options[i];
+			}
+		}
+
+		return options[0];
+	}
+
 	public Integer getKey() {
 		return this.key;
 	}

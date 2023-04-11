@@ -14,6 +14,17 @@ public enum ROM {
 		this.title = title;
 	}
 
+	static public ROM getEntityByKey(Integer key) {
+		ROM[] options = ROM.values();
+		for (int i = 1; i < options.length; i++) {
+			if (options[i].getKey() == key) {
+				return options[i];
+			}
+		}
+
+		return options[0];
+	}
+
 	public Integer getKey() {
 		return this.key;
 	}

@@ -13,17 +13,15 @@ public enum UserActions {
 		this.key = key;
 	}
 
-	static public UserActions getUserActionByKey(Integer key) {
-		if (UserActions.ADD_FILTER.getKey() == key)
-			return UserActions.ADD_FILTER;
-		if (UserActions.SHOW.getKey() == key)
-			return UserActions.SHOW;
-		if (UserActions.RESET_FILTER.getKey() == key)
-			return UserActions.RESET_FILTER;
-		if (UserActions.EXIT.getKey() == key)
-			return UserActions.EXIT;
+	static public UserActions getEntityByKey(Integer key) {
+		UserActions[] options = UserActions.values();
+		for (int i = 1; i < options.length; i++) {
+			if (options[i].getKey() == key) {
+				return options[i];
+			}
+		}
 
-		return UserActions.NOTHING;
+		return options[0];
 	}
 
 	public Integer getKey() {

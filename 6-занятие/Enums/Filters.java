@@ -14,17 +14,15 @@ public enum Filters {
 		this.key = key;
 	}
 
-	static public Filters getFilterByKey(Integer key) {
-		if (Filters.RAM.getKey() == key)
-			return Filters.RAM;
-		if (Filters.ROM.getKey() == key)
-			return Filters.ROM;
-		if (Filters.SYSTEM.getKey() == key)
-			return Filters.SYSTEM;
-		if (Filters.COLOR.getKey() == key)
-			return Filters.COLOR;
-		
-		return Filters.NOTHING;
+	static public Filters getEntityByKey(Integer key) {
+		Filters[] options = Filters.values();
+		for (int i = 1; i < options.length; i++) {
+			if (options[i].getKey() == key) {
+				return options[i];
+			}
+		}
+
+		return options[0];
 	}
 
 	public Integer getKey() {

@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.logging.Filter;
 
 import Devices.Notebook;
 import Enums.Colors;
@@ -42,7 +41,7 @@ public class Program {
 	}
 
 	private void messageLoop() {
-		while (isTimeToLeave()) {
+		while (!isTimeToLeave()) {
 			this.action = this.askAndGetUserAction();
 			this.handleAction(action);
 		}
@@ -54,11 +53,11 @@ public class Program {
 
 	private UserActions askAndGetUserAction() {
 		this.askUserAction();
-		return UserActions.getUserActionByKey(this.input.nextInt());
+		return UserActions.getEntityByKey(this.input.nextInt());
 	}
 
 	private void askUserAction() {
-		// Ask frase
+		System.out.println("Введите команду:");
 	}
 
 	private void handleAction(UserActions action) {
@@ -86,7 +85,7 @@ public class Program {
 
 	private Filters askAndGetFilter() {
 		this.askFilter();
-		return Filters.getFilterByKey(this.input.nextInt());
+		return Filters.getEntityByKey(this.input.nextInt());
 	}
 
 	private void askFilter() {
@@ -105,7 +104,7 @@ public class Program {
 
 	private Integer askAndGetFilterValue(Filters filter) {
 		this.askFilterValue(filter);
-		return this.input.nextInt();
+		return this.getFilterValue(filter);
 	}
 
 	private void askFilterValue(Filters filter) {
@@ -167,12 +166,21 @@ public class Program {
 		options.forEach(option -> System.out.println(option.getMenuItemString()));
 	}
 
-	private void handleShowFiltered() {
+	private Integer getFilterValue(Filters filter) {
+		return this.input.nextInt();
+	}
 
+	private void handleShowFiltered() {
+		ArrayList<Notebook> notebooks = this.notebooks;
+		System.out.println(this.filters);
+	}
+
+	private ArrayList<Notebook> filterNotebooks() {
+		return new ArrayList<>();
 	}
 
 	private void handleResetFilter() {
-
+		this.filters.clear();
 	}
 
 	private void printNotebooks(ArrayList<Notebook> notebooks) {
